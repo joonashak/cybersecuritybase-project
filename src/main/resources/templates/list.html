@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Attendee administration</title>
+    </head>
+    <body>
+        
+        <p th:unless="${admin}">
+            <a href="/login">Login as admin</a>
+        </p>
+        
+        <div>
+            <p th:if="${admin}">Hello, admin!</p>
+            
+            <p th:if="${admin}">Here's who's signed up so far:</p>
+            
+            <p th:unless="${admin}">Your details are as follows:</p>
+            
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th th:if="${admin}"></th>
+                </tr>
+                <tr th:each="signup : ${signups}">
+                    <td th:utext="${signup.name}"></td>
+                    <td th:utext="${signup.address}"></td>
+                    <td th:if="${admin}">
+                        <a th:href="@{/delete(name=${signup.name})}">[delete]</a>
+                    </td>
+                </tr>
+           </table>
+        </div>
+        
+    </body>
+</html>

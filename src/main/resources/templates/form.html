@@ -13,6 +13,18 @@
             <p><input type="submit" value="Submit" /></p>
         </form>
 
-        <p></p>
+        <div>
+            <p><a href="/login">Click here to login</a> as administrator</p>
+        </div>
+        
+        <h2>Enter your name to view your personal details:</h2>
+        
+        <form action="#" th:action="@{/view}" method="POST">
+            <p>
+                <input type="text" name="name" id="myname" />
+                <input type="submit" value="Go!" />
+            </p>
+        </form>
+        
     </body>
 </html>

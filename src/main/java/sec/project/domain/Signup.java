@@ -1,9 +1,11 @@
 package sec.project.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Table;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
+@Table(name = "signups")
 public class Signup extends AbstractPersistable<Long> {
 
     private String name;

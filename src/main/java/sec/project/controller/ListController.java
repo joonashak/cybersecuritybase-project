@@ -10,30 +10,29 @@ import sec.project.domain.Signup;
 import sec.project.repository.SignupRepository;
 
 @Controller
-public class SignupController {
-
+public class ListController {
+    
     private final SignupRepository signupRepository = new SignupRepository();
-
-    @RequestMapping("*")
-    public String defaultMapping() {
-        return "redirect:/form";
-    }
-
-    @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public String loadForm(@RequestParam(required = false) String admin, 
-            Model model) {
+    
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public String list(Model model) {
         
         List<Signup> signups = signupRepository.findAll();
         model.addAttribute("signups", signups);
-        return "form";
-    }
-
-    @RequestMapping(value = "/form", method = RequestMethod.POST)
-    public String submitForm(@RequestParam String name, 
-            @RequestParam String address) {
         
-        signupRepository.save(new Signup(name, address));
-        return "done";
+        model.addAttribute("admin", false);
+        
+        return "redirect:/form";
     }
-
+    
+    @RequestMapping(value = "view", method = RequestMethod.POST)
+    public String filteredList(@RequestParam String name, Model model) {
+        
+        List<Signup> signups = signupRepository.findByName(name);
+        model.addAttribute("signups", signups);
+        
+        model.addAttribute("admin", false);
+        
+        return "list";
+    }
 }
